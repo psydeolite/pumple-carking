@@ -10,27 +10,29 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point( points, x1, y1, z1 )
     add_point( points, x2, y2, z2 )
 
-def scanline_convert(screen, Xm, Ym, Xb, Yb, Xt, Yt):
+def scanline_convert(screen, Xm, Ym, Xb, Yb, Xt, Yt, color):
+    print Yb, Ym, Yt
     inc=0
     #while haven't reached top of triangle
     new_Yb=Yb+inc
-    while new_Yb<Yt:
-        d0=0
-        #x0 is on BT
-        d1=(Xt-Xb)/(Yt-Yb)
-        Xb1=Xb+inc*d1
-        #x1 is on BM
+    print new_Yb
+    print Yt
+    print new_Yb<Yt
+    while new_Yb>Yt:
+        print "pls"
         if new_Yb<Ym:
+            print "less"
             d0=(Xt-Xm)/(Yt-Ym)
             Xb0=Xb+inc*d0
-            draw_line(screen,Xb1,new_Yb,Xb0,new_Yb,color)
+            draw_line(screen,Xb,new_Yb,Xb0,new_Yb,color)
         #x1 is on MT
         else:
-            d0=(Xm-Xb)/(Ym-mb)
+            print "else"
+            d0=(Xm-Xb)/(Ym-Yb)
             Xm0=Xm+(inc-Ym+Yb)*d0
-            draw_line(screen,Xb1,new_Yb,Xb0,new_Yb,color)
+            draw_line(screen,Xm,new_Yb,Xm0,new_Yb,color)
         inc+=1
-        new_Yb+=inc
+        new_Yb-=inc
         
         
 def draw_polygons( points, screen, color ):
@@ -43,12 +45,77 @@ def draw_polygons( points, screen, color ):
     while p < len( points ) - 2:
 
         if calculate_dot( points, p ) < 0:
-            draw_line( screen, points[p][0], points[p][1],
+
+            if points[p][1]>=points[p+1][1] and points[p][1]>=points[p+2][1]:
+                print "a"
+                Xb = points[p][0]
+                Yb = points[p][1]
+                
+                if points[p+1][1]>=points[p+2][1]:
+                    print "a1"
+                    Xm = points[p+1][0]
+                    Ym = points[p+1][1]
+                    
+                    Xt = points[p+2][0]
+                    Yt = points[p+2][1]
+
+                else:
+                    print "a2"
+                    Xt = points[p+1][0]
+                    Yt = points[p+1][1]
+                    
+                    Xm = points[p+2][0]
+                    Ym = points[p+2][1]
+
+            elif points[p+1][1]>=points[p][1] and points[p+1][1]>=points[p+2][1]:
+                print "b"
+                Xb = points[p+1][0]
+                Yb = points[p+1][1]
+                
+                if points[p][1]>=points[p+2][1]:
+                    print "b1"
+                    Xm = points[p][0]
+                    Ym = points[p][1]
+                    
+                    Xt = points[p+2][0]
+                    Yt = points[p+2][1]
+                
+                else:
+                    print "b2"
+                    Xt = points[p][0]
+                    Yt = points[p][1]
+                    
+                    Xm = points[p+2][0]
+                    Ym = points[p+2][1]
+
+            elif points[p+2][1]>=points[p][1] and points[p+2][1]>=points[p+1][1]:
+                print "c"
+                Xb = points[p+2][0]
+                Yb = points[p+2][1]
+                
+                if points[p][1]>=points[p+1][1]:
+                    print "c1"
+                    Xm = points[p][0]
+                    Ym = points[p][1]
+                    
+                    Xt = points[p+1][0]
+                    Yt = points[p+1][1]
+
+                else:
+                    print "c2"
+                    Xt = points[p][0]
+                    Yt = points[p][1]
+                    
+                    Xm = points[p+1][0]
+                    Ym = points[p+1][1]
+            scanline_convert( screen, Xm, Ym, Xb, Yb, Xt, Yt, color)
+            '''draw_line( screen, points[p][0], points[p][1],
                        points[p+1][0], points[p+1][1], color )
             draw_line( screen, points[p+1][0], points[p+1][1],
                        points[p+2][0], points[p+2][1], color )
             draw_line( screen, points[p+2][0], points[p+2][1],
-                       points[p][0], points[p][1], color )
+                       points[p][0], points[p][1], color )'''
+        
         p+= 3
 
 
