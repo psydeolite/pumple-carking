@@ -14,25 +14,27 @@ def scanline_convert(screen, Xm, Ym, Xb, Yb, Xt, Yt, color):
     print Yb, Ym, Yt
     inc=0
     #while haven't reached top of triangle
-    new_Yb=Yb+inc
-    print new_Yb
+    #new_Yb=Yb+inc
+    #print new_Yb
     print Yt
-    print new_Yb<Yt
-    while new_Yb>Yt:
+    #print new_Yb<Yt
+    while Yb+inc<Yt:
         print "pls"
-        if new_Yb<Ym:
+        d0= float(Xt-Xb) / (Yt-Yb)
+        Xb0=Xb+inc*d0
+        if Yb+inc<Ym:
             print "less"
-            d0=(Xt-Xm)/(Yt-Ym)
-            Xb0=Xb+inc*d0
-            draw_line(screen,Xb,new_Yb,Xb0,new_Yb,color)
+            d1= float(Xm-Xb)/(Ym-Yb)
+            Xb1=Xb+inc*d1
+            draw_line(screen,Xb0,Yb+inc,Xb1,Yb+inc,color)
         #x1 is on MT
         else:
             print "else"
-            d0=(Xm-Xb)/(Ym-Yb)
-            Xm0=Xm+(inc-Ym+Yb)*d0
-            draw_line(screen,Xm,new_Yb,Xm0,new_Yb,color)
+            d1= float(Xt-Xm)/(Yt-Ym)
+            Xm1=Xm+(inc-Ym+Yb)*d1
+            draw_line(screen,Xb0,Yb+inc,Xm1,Yb+inc,color)
         inc+=1
-        new_Yb-=inc
+        #new_Yb+=inc
         
         
 def draw_polygons( points, screen, color ):
@@ -48,63 +50,63 @@ def draw_polygons( points, screen, color ):
 
             if points[p][1]>=points[p+1][1] and points[p][1]>=points[p+2][1]:
                 print "a"
-                Xb = points[p][0]
-                Yb = points[p][1]
+                Xt = points[p][0]
+                Yt = points[p][1]
                 
                 if points[p+1][1]>=points[p+2][1]:
                     print "a1"
                     Xm = points[p+1][0]
                     Ym = points[p+1][1]
                     
-                    Xt = points[p+2][0]
-                    Yt = points[p+2][1]
+                    Xb = points[p+2][0]
+                    Yb = points[p+2][1]
 
                 else:
                     print "a2"
-                    Xt = points[p+1][0]
-                    Yt = points[p+1][1]
+                    Xb = points[p+1][0]
+                    Yb = points[p+1][1]
                     
                     Xm = points[p+2][0]
                     Ym = points[p+2][1]
 
             elif points[p+1][1]>=points[p][1] and points[p+1][1]>=points[p+2][1]:
                 print "b"
-                Xb = points[p+1][0]
-                Yb = points[p+1][1]
+                Xt = points[p+1][0]
+                Yt = points[p+1][1]
                 
                 if points[p][1]>=points[p+2][1]:
                     print "b1"
                     Xm = points[p][0]
                     Ym = points[p][1]
                     
-                    Xt = points[p+2][0]
-                    Yt = points[p+2][1]
+                    Xb = points[p+2][0]
+                    Yb = points[p+2][1]
                 
                 else:
                     print "b2"
-                    Xt = points[p][0]
-                    Yt = points[p][1]
+                    Xb = points[p][0]
+                    Yb = points[p][1]
                     
                     Xm = points[p+2][0]
                     Ym = points[p+2][1]
 
             elif points[p+2][1]>=points[p][1] and points[p+2][1]>=points[p+1][1]:
                 print "c"
-                Xb = points[p+2][0]
-                Yb = points[p+2][1]
+                Xt = points[p+2][0]
+                Yt = points[p+2][1]
                 
                 if points[p][1]>=points[p+1][1]:
                     print "c1"
                     Xm = points[p][0]
                     Ym = points[p][1]
                     
-                    Xt = points[p+1][0]
-                    Yt = points[p+1][1]
+                    Xb = points[p+1][0]
+                    Yb = points[p+1][1]
 
                 else:
                     print "c2"
-                    Xt = points[p][0]
-                    Yt = points[p][1]
+                    Xb = points[p][0]
+                    Yb = points[p][1]
                     
                     Xm = points[p+1][0]
                     Ym = points[p+1][1]
