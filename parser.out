@@ -15,7 +15,6 @@ Unused terminals:
     SAVE_KNOBS
     TWEEN
     MESH
-    AMBIENT
     CONSTANTS
 
 Grammar
@@ -55,16 +54,17 @@ Rule 31    statement -> SCALE NUMBER NUMBER NUMBER SYMBOL
 Rule 32    statement -> SCALE NUMBER NUMBER NUMBER
 Rule 33    statement -> ROTATE XYZ NUMBER SYMBOL
 Rule 34    statement -> ROTATE XYZ NUMBER
-Rule 35    SYMBOL -> XYZ
-Rule 36    SYMBOL -> ID
-Rule 37    TEXT -> SYMBOL
-Rule 38    TEXT -> STRING
-Rule 39    NUMBER -> DOUBLE
-Rule 40    NUMBER -> INT
+Rule 35    statement -> AMBIENT NUMBER NUMBER NUMBER
+Rule 36    SYMBOL -> XYZ
+Rule 37    SYMBOL -> ID
+Rule 38    TEXT -> SYMBOL
+Rule 39    TEXT -> STRING
+Rule 40    NUMBER -> DOUBLE
+Rule 41    NUMBER -> INT
 
 Terminals, with rules where they appear
 
-AMBIENT              : 
+AMBIENT              : 35
 BASENAME             : 5
 BEZIER               : 25 26
 BOX                  : 21
@@ -74,13 +74,13 @@ CO                   :
 COMMENT              : 3
 CONSTANTS            : 
 DISPLAY              : 13 14
-DOUBLE               : 39
+DOUBLE               : 40
 FOCAL                : 
 FRAMES               : 4
 GENERATE_RAYFILES    : 
 HERMITE              : 27 28
-ID                   : 36
-INT                  : 4 6 6 9 9 17 17 19 19 24 25 27 40
+ID                   : 37
+INT                  : 4 6 6 9 9 17 17 19 19 24 25 27 41
 LIGHT                : 
 LINE                 : 22
 MESH                 : 
@@ -98,19 +98,19 @@ SET_KNOBS            : 16
 SHADING              : 
 SHADING_TYPE         : 
 SPHERE               : 17 18
-STRING               : 38
+STRING               : 39
 TEXTURE              : 
 TORUS                : 19 20
 TWEEN                : 
 VARY                 : 6
 WEB                  : 
-XYZ                  : 33 34 35
+XYZ                  : 33 34 36
 error                : 
 
 Nonterminals, with rules where they appear
 
-NUMBER               : 6 6 15 16 17 17 17 17 18 18 18 18 19 19 19 19 19 20 20 20 20 20 21 21 21 21 21 21 22 22 22 22 22 22 23 23 23 23 23 23 23 24 24 24 24 24 24 24 25 25 25 25 25 25 25 25 25 25 25 25 26 26 26 26 26 26 26 26 26 26 26 26 27 27 27 27 27 27 27 27 27 27 27 27 28 28 28 28 28 28 28 28 28 28 28 28 29 29 29 30 30 30 31 31 31 32 32 32 33 34
-SYMBOL               : 6 15 29 31 33 37
+NUMBER               : 6 6 15 16 17 17 17 17 18 18 18 18 19 19 19 19 19 20 20 20 20 20 21 21 21 21 21 21 22 22 22 22 22 22 23 23 23 23 23 23 23 24 24 24 24 24 24 24 25 25 25 25 25 25 25 25 25 25 25 25 26 26 26 26 26 26 26 26 26 26 26 26 27 27 27 27 27 27 27 27 27 27 27 27 28 28 28 28 28 28 28 28 28 28 28 28 29 29 29 30 30 30 31 31 31 32 32 32 33 34 35 35 35
+SYMBOL               : 6 15 29 31 33 38
 TEXT                 : 5 12 13
 statement            : 2
 stuff                : 2 0
@@ -154,6 +154,7 @@ state 0
     (32) statement -> . SCALE NUMBER NUMBER NUMBER
     (33) statement -> . ROTATE XYZ NUMBER SYMBOL
     (34) statement -> . ROTATE XYZ NUMBER
+    (35) statement -> . AMBIENT NUMBER NUMBER NUMBER
 
     $end            reduce using rule 1 (stuff -> .)
     COMMENT         shift and go to state 9
@@ -163,7 +164,7 @@ state 0
     POP             shift and go to state 12
     PUSH            shift and go to state 15
     SCREEN          shift and go to state 16
-    SAVE            shift and go to state 23
+    SAVE            shift and go to state 24
     DISPLAY         shift and go to state 8
     SET             shift and go to state 10
     SET_KNOBS       shift and go to state 13
@@ -171,12 +172,13 @@ state 0
     TORUS           shift and go to state 17
     BOX             shift and go to state 1
     LINE            shift and go to state 7
-    CIRCLE          shift and go to state 22
+    CIRCLE          shift and go to state 23
     BEZIER          shift and go to state 20
     HERMITE         shift and go to state 11
     MOVE            shift and go to state 4
     SCALE           shift and go to state 2
     ROTATE          shift and go to state 19
+    AMBIENT         shift and go to state 22
 
     stuff                          shift and go to state 21
     statement                      shift and go to state 14
@@ -184,90 +186,90 @@ state 0
 state 1
 
     (21) statement -> BOX . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 26
+    NUMBER                         shift and go to state 27
 
 state 2
 
     (31) statement -> SCALE . NUMBER NUMBER NUMBER SYMBOL
     (32) statement -> SCALE . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 27
+    NUMBER                         shift and go to state 28
 
 state 3
 
     (5) statement -> BASENAME . TEXT
-    (37) TEXT -> . SYMBOL
-    (38) TEXT -> . STRING
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (38) TEXT -> . SYMBOL
+    (39) TEXT -> . STRING
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
-    STRING          shift and go to state 28
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    STRING          shift and go to state 29
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    TEXT                           shift and go to state 29
-    SYMBOL                         shift and go to state 30
+    TEXT                           shift and go to state 30
+    SYMBOL                         shift and go to state 31
 
 state 4
 
     (29) statement -> MOVE . NUMBER NUMBER NUMBER SYMBOL
     (30) statement -> MOVE . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 33
+    NUMBER                         shift and go to state 34
 
 state 5
 
     (6) statement -> VARY . SYMBOL INT INT NUMBER NUMBER
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    SYMBOL                         shift and go to state 34
+    SYMBOL                         shift and go to state 35
 
 state 6
 
     (4) statement -> FRAMES . INT
 
-    INT             shift and go to state 35
+    INT             shift and go to state 36
 
 
 state 7
 
     (22) statement -> LINE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 36
+    NUMBER                         shift and go to state 37
 
 state 8
 
     (13) statement -> DISPLAY . TEXT
     (14) statement -> DISPLAY .
-    (37) TEXT -> . SYMBOL
-    (38) TEXT -> . STRING
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (38) TEXT -> . SYMBOL
+    (39) TEXT -> . STRING
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
     COMMENT         reduce using rule 14 (statement -> DISPLAY .)
     FRAMES          reduce using rule 14 (statement -> DISPLAY .)
@@ -290,13 +292,14 @@ state 8
     MOVE            reduce using rule 14 (statement -> DISPLAY .)
     SCALE           reduce using rule 14 (statement -> DISPLAY .)
     ROTATE          reduce using rule 14 (statement -> DISPLAY .)
+    AMBIENT         reduce using rule 14 (statement -> DISPLAY .)
     $end            reduce using rule 14 (statement -> DISPLAY .)
-    STRING          shift and go to state 28
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    STRING          shift and go to state 29
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    TEXT                           shift and go to state 37
-    SYMBOL                         shift and go to state 30
+    TEXT                           shift and go to state 38
+    SYMBOL                         shift and go to state 31
 
 state 9
 
@@ -323,31 +326,32 @@ state 9
     MOVE            reduce using rule 3 (statement -> COMMENT .)
     SCALE           reduce using rule 3 (statement -> COMMENT .)
     ROTATE          reduce using rule 3 (statement -> COMMENT .)
+    AMBIENT         reduce using rule 3 (statement -> COMMENT .)
     $end            reduce using rule 3 (statement -> COMMENT .)
 
 
 state 10
 
     (15) statement -> SET . SYMBOL NUMBER
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    SYMBOL                         shift and go to state 38
+    SYMBOL                         shift and go to state 39
 
 state 11
 
     (27) statement -> HERMITE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 39
+    NUMBER                         shift and go to state 40
 
 state 12
 
@@ -374,19 +378,20 @@ state 12
     MOVE            reduce using rule 7 (statement -> POP .)
     SCALE           reduce using rule 7 (statement -> POP .)
     ROTATE          reduce using rule 7 (statement -> POP .)
+    AMBIENT         reduce using rule 7 (statement -> POP .)
     $end            reduce using rule 7 (statement -> POP .)
 
 
 state 13
 
     (16) statement -> SET_KNOBS . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 40
+    NUMBER                         shift and go to state 41
 
 state 14
 
@@ -425,6 +430,7 @@ state 14
     (32) statement -> . SCALE NUMBER NUMBER NUMBER
     (33) statement -> . ROTATE XYZ NUMBER SYMBOL
     (34) statement -> . ROTATE XYZ NUMBER
+    (35) statement -> . AMBIENT NUMBER NUMBER NUMBER
 
     $end            reduce using rule 1 (stuff -> .)
     COMMENT         shift and go to state 9
@@ -434,7 +440,7 @@ state 14
     POP             shift and go to state 12
     PUSH            shift and go to state 15
     SCREEN          shift and go to state 16
-    SAVE            shift and go to state 23
+    SAVE            shift and go to state 24
     DISPLAY         shift and go to state 8
     SET             shift and go to state 10
     SET_KNOBS       shift and go to state 13
@@ -442,14 +448,15 @@ state 14
     TORUS           shift and go to state 17
     BOX             shift and go to state 1
     LINE            shift and go to state 7
-    CIRCLE          shift and go to state 22
+    CIRCLE          shift and go to state 23
     BEZIER          shift and go to state 20
     HERMITE         shift and go to state 11
     MOVE            shift and go to state 4
     SCALE           shift and go to state 2
     ROTATE          shift and go to state 19
+    AMBIENT         shift and go to state 22
 
-    stuff                          shift and go to state 41
+    stuff                          shift and go to state 42
     statement                      shift and go to state 14
 
 state 15
@@ -477,6 +484,7 @@ state 15
     MOVE            reduce using rule 8 (statement -> PUSH .)
     SCALE           reduce using rule 8 (statement -> PUSH .)
     ROTATE          reduce using rule 8 (statement -> PUSH .)
+    AMBIENT         reduce using rule 8 (statement -> PUSH .)
     $end            reduce using rule 8 (statement -> PUSH .)
 
 
@@ -485,7 +493,7 @@ state 16
     (9) statement -> SCREEN . INT INT
     (10) statement -> SCREEN .
 
-    INT             shift and go to state 42
+    INT             shift and go to state 43
     COMMENT         reduce using rule 10 (statement -> SCREEN .)
     FRAMES          reduce using rule 10 (statement -> SCREEN .)
     BASENAME        reduce using rule 10 (statement -> SCREEN .)
@@ -507,6 +515,7 @@ state 16
     MOVE            reduce using rule 10 (statement -> SCREEN .)
     SCALE           reduce using rule 10 (statement -> SCREEN .)
     ROTATE          reduce using rule 10 (statement -> SCREEN .)
+    AMBIENT         reduce using rule 10 (statement -> SCREEN .)
     $end            reduce using rule 10 (statement -> SCREEN .)
 
 
@@ -514,45 +523,45 @@ state 17
 
     (19) statement -> TORUS . NUMBER NUMBER NUMBER NUMBER NUMBER INT INT
     (20) statement -> TORUS . NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 43
+    NUMBER                         shift and go to state 44
 
 state 18
 
     (17) statement -> SPHERE . NUMBER NUMBER NUMBER NUMBER INT INT
     (18) statement -> SPHERE . NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 44
+    NUMBER                         shift and go to state 45
 
 state 19
 
     (33) statement -> ROTATE . XYZ NUMBER SYMBOL
     (34) statement -> ROTATE . XYZ NUMBER
 
-    XYZ             shift and go to state 45
+    XYZ             shift and go to state 46
 
 
 state 20
 
     (25) statement -> BEZIER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 46
+    NUMBER                         shift and go to state 47
 
 state 21
 
@@ -562,24 +571,35 @@ state 21
 
 state 22
 
-    (23) statement -> CIRCLE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (24) statement -> CIRCLE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (35) statement -> AMBIENT . NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 47
+    NUMBER                         shift and go to state 48
 
 state 23
 
+    (23) statement -> CIRCLE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+    (24) statement -> CIRCLE . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 49
+
+state 24
+
     (11) statement -> SAVE .
     (12) statement -> SAVE . TEXT
-    (37) TEXT -> . SYMBOL
-    (38) TEXT -> . STRING
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (38) TEXT -> . SYMBOL
+    (39) TEXT -> . STRING
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
     COMMENT         reduce using rule 11 (statement -> SAVE .)
     FRAMES          reduce using rule 11 (statement -> SAVE .)
@@ -602,130 +622,134 @@ state 23
     MOVE            reduce using rule 11 (statement -> SAVE .)
     SCALE           reduce using rule 11 (statement -> SAVE .)
     ROTATE          reduce using rule 11 (statement -> SAVE .)
+    AMBIENT         reduce using rule 11 (statement -> SAVE .)
     $end            reduce using rule 11 (statement -> SAVE .)
-    STRING          shift and go to state 28
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    STRING          shift and go to state 29
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    TEXT                           shift and go to state 48
-    SYMBOL                         shift and go to state 30
-
-state 24
-
-    (39) NUMBER -> DOUBLE .
-
-    DOUBLE          reduce using rule 39 (NUMBER -> DOUBLE .)
-    INT             reduce using rule 39 (NUMBER -> DOUBLE .)
-    COMMENT         reduce using rule 39 (NUMBER -> DOUBLE .)
-    FRAMES          reduce using rule 39 (NUMBER -> DOUBLE .)
-    BASENAME        reduce using rule 39 (NUMBER -> DOUBLE .)
-    VARY            reduce using rule 39 (NUMBER -> DOUBLE .)
-    POP             reduce using rule 39 (NUMBER -> DOUBLE .)
-    PUSH            reduce using rule 39 (NUMBER -> DOUBLE .)
-    SCREEN          reduce using rule 39 (NUMBER -> DOUBLE .)
-    SAVE            reduce using rule 39 (NUMBER -> DOUBLE .)
-    DISPLAY         reduce using rule 39 (NUMBER -> DOUBLE .)
-    SET             reduce using rule 39 (NUMBER -> DOUBLE .)
-    SET_KNOBS       reduce using rule 39 (NUMBER -> DOUBLE .)
-    SPHERE          reduce using rule 39 (NUMBER -> DOUBLE .)
-    TORUS           reduce using rule 39 (NUMBER -> DOUBLE .)
-    BOX             reduce using rule 39 (NUMBER -> DOUBLE .)
-    LINE            reduce using rule 39 (NUMBER -> DOUBLE .)
-    CIRCLE          reduce using rule 39 (NUMBER -> DOUBLE .)
-    BEZIER          reduce using rule 39 (NUMBER -> DOUBLE .)
-    HERMITE         reduce using rule 39 (NUMBER -> DOUBLE .)
-    MOVE            reduce using rule 39 (NUMBER -> DOUBLE .)
-    SCALE           reduce using rule 39 (NUMBER -> DOUBLE .)
-    ROTATE          reduce using rule 39 (NUMBER -> DOUBLE .)
-    $end            reduce using rule 39 (NUMBER -> DOUBLE .)
-    XYZ             reduce using rule 39 (NUMBER -> DOUBLE .)
-    ID              reduce using rule 39 (NUMBER -> DOUBLE .)
-
+    TEXT                           shift and go to state 50
+    SYMBOL                         shift and go to state 31
 
 state 25
 
-    (40) NUMBER -> INT .
+    (40) NUMBER -> DOUBLE .
 
-    DOUBLE          reduce using rule 40 (NUMBER -> INT .)
-    INT             reduce using rule 40 (NUMBER -> INT .)
-    COMMENT         reduce using rule 40 (NUMBER -> INT .)
-    FRAMES          reduce using rule 40 (NUMBER -> INT .)
-    BASENAME        reduce using rule 40 (NUMBER -> INT .)
-    VARY            reduce using rule 40 (NUMBER -> INT .)
-    POP             reduce using rule 40 (NUMBER -> INT .)
-    PUSH            reduce using rule 40 (NUMBER -> INT .)
-    SCREEN          reduce using rule 40 (NUMBER -> INT .)
-    SAVE            reduce using rule 40 (NUMBER -> INT .)
-    DISPLAY         reduce using rule 40 (NUMBER -> INT .)
-    SET             reduce using rule 40 (NUMBER -> INT .)
-    SET_KNOBS       reduce using rule 40 (NUMBER -> INT .)
-    SPHERE          reduce using rule 40 (NUMBER -> INT .)
-    TORUS           reduce using rule 40 (NUMBER -> INT .)
-    BOX             reduce using rule 40 (NUMBER -> INT .)
-    LINE            reduce using rule 40 (NUMBER -> INT .)
-    CIRCLE          reduce using rule 40 (NUMBER -> INT .)
-    BEZIER          reduce using rule 40 (NUMBER -> INT .)
-    HERMITE         reduce using rule 40 (NUMBER -> INT .)
-    MOVE            reduce using rule 40 (NUMBER -> INT .)
-    SCALE           reduce using rule 40 (NUMBER -> INT .)
-    ROTATE          reduce using rule 40 (NUMBER -> INT .)
-    $end            reduce using rule 40 (NUMBER -> INT .)
-    XYZ             reduce using rule 40 (NUMBER -> INT .)
-    ID              reduce using rule 40 (NUMBER -> INT .)
+    DOUBLE          reduce using rule 40 (NUMBER -> DOUBLE .)
+    INT             reduce using rule 40 (NUMBER -> DOUBLE .)
+    COMMENT         reduce using rule 40 (NUMBER -> DOUBLE .)
+    FRAMES          reduce using rule 40 (NUMBER -> DOUBLE .)
+    BASENAME        reduce using rule 40 (NUMBER -> DOUBLE .)
+    VARY            reduce using rule 40 (NUMBER -> DOUBLE .)
+    POP             reduce using rule 40 (NUMBER -> DOUBLE .)
+    PUSH            reduce using rule 40 (NUMBER -> DOUBLE .)
+    SCREEN          reduce using rule 40 (NUMBER -> DOUBLE .)
+    SAVE            reduce using rule 40 (NUMBER -> DOUBLE .)
+    DISPLAY         reduce using rule 40 (NUMBER -> DOUBLE .)
+    SET             reduce using rule 40 (NUMBER -> DOUBLE .)
+    SET_KNOBS       reduce using rule 40 (NUMBER -> DOUBLE .)
+    SPHERE          reduce using rule 40 (NUMBER -> DOUBLE .)
+    TORUS           reduce using rule 40 (NUMBER -> DOUBLE .)
+    BOX             reduce using rule 40 (NUMBER -> DOUBLE .)
+    LINE            reduce using rule 40 (NUMBER -> DOUBLE .)
+    CIRCLE          reduce using rule 40 (NUMBER -> DOUBLE .)
+    BEZIER          reduce using rule 40 (NUMBER -> DOUBLE .)
+    HERMITE         reduce using rule 40 (NUMBER -> DOUBLE .)
+    MOVE            reduce using rule 40 (NUMBER -> DOUBLE .)
+    SCALE           reduce using rule 40 (NUMBER -> DOUBLE .)
+    ROTATE          reduce using rule 40 (NUMBER -> DOUBLE .)
+    AMBIENT         reduce using rule 40 (NUMBER -> DOUBLE .)
+    $end            reduce using rule 40 (NUMBER -> DOUBLE .)
+    XYZ             reduce using rule 40 (NUMBER -> DOUBLE .)
+    ID              reduce using rule 40 (NUMBER -> DOUBLE .)
 
 
 state 26
 
-    (21) statement -> BOX NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (41) NUMBER -> INT .
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          reduce using rule 41 (NUMBER -> INT .)
+    INT             reduce using rule 41 (NUMBER -> INT .)
+    COMMENT         reduce using rule 41 (NUMBER -> INT .)
+    FRAMES          reduce using rule 41 (NUMBER -> INT .)
+    BASENAME        reduce using rule 41 (NUMBER -> INT .)
+    VARY            reduce using rule 41 (NUMBER -> INT .)
+    POP             reduce using rule 41 (NUMBER -> INT .)
+    PUSH            reduce using rule 41 (NUMBER -> INT .)
+    SCREEN          reduce using rule 41 (NUMBER -> INT .)
+    SAVE            reduce using rule 41 (NUMBER -> INT .)
+    DISPLAY         reduce using rule 41 (NUMBER -> INT .)
+    SET             reduce using rule 41 (NUMBER -> INT .)
+    SET_KNOBS       reduce using rule 41 (NUMBER -> INT .)
+    SPHERE          reduce using rule 41 (NUMBER -> INT .)
+    TORUS           reduce using rule 41 (NUMBER -> INT .)
+    BOX             reduce using rule 41 (NUMBER -> INT .)
+    LINE            reduce using rule 41 (NUMBER -> INT .)
+    CIRCLE          reduce using rule 41 (NUMBER -> INT .)
+    BEZIER          reduce using rule 41 (NUMBER -> INT .)
+    HERMITE         reduce using rule 41 (NUMBER -> INT .)
+    MOVE            reduce using rule 41 (NUMBER -> INT .)
+    SCALE           reduce using rule 41 (NUMBER -> INT .)
+    ROTATE          reduce using rule 41 (NUMBER -> INT .)
+    AMBIENT         reduce using rule 41 (NUMBER -> INT .)
+    $end            reduce using rule 41 (NUMBER -> INT .)
+    XYZ             reduce using rule 41 (NUMBER -> INT .)
+    ID              reduce using rule 41 (NUMBER -> INT .)
 
-    NUMBER                         shift and go to state 49
 
 state 27
 
-    (31) statement -> SCALE NUMBER . NUMBER NUMBER SYMBOL
-    (32) statement -> SCALE NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (21) statement -> BOX NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 50
+    NUMBER                         shift and go to state 51
 
 state 28
 
-    (38) TEXT -> STRING .
+    (31) statement -> SCALE NUMBER . NUMBER NUMBER SYMBOL
+    (32) statement -> SCALE NUMBER . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    COMMENT         reduce using rule 38 (TEXT -> STRING .)
-    FRAMES          reduce using rule 38 (TEXT -> STRING .)
-    BASENAME        reduce using rule 38 (TEXT -> STRING .)
-    VARY            reduce using rule 38 (TEXT -> STRING .)
-    POP             reduce using rule 38 (TEXT -> STRING .)
-    PUSH            reduce using rule 38 (TEXT -> STRING .)
-    SCREEN          reduce using rule 38 (TEXT -> STRING .)
-    SAVE            reduce using rule 38 (TEXT -> STRING .)
-    DISPLAY         reduce using rule 38 (TEXT -> STRING .)
-    SET             reduce using rule 38 (TEXT -> STRING .)
-    SET_KNOBS       reduce using rule 38 (TEXT -> STRING .)
-    SPHERE          reduce using rule 38 (TEXT -> STRING .)
-    TORUS           reduce using rule 38 (TEXT -> STRING .)
-    BOX             reduce using rule 38 (TEXT -> STRING .)
-    LINE            reduce using rule 38 (TEXT -> STRING .)
-    CIRCLE          reduce using rule 38 (TEXT -> STRING .)
-    BEZIER          reduce using rule 38 (TEXT -> STRING .)
-    HERMITE         reduce using rule 38 (TEXT -> STRING .)
-    MOVE            reduce using rule 38 (TEXT -> STRING .)
-    SCALE           reduce using rule 38 (TEXT -> STRING .)
-    ROTATE          reduce using rule 38 (TEXT -> STRING .)
-    $end            reduce using rule 38 (TEXT -> STRING .)
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
+    NUMBER                         shift and go to state 52
 
 state 29
+
+    (39) TEXT -> STRING .
+
+    COMMENT         reduce using rule 39 (TEXT -> STRING .)
+    FRAMES          reduce using rule 39 (TEXT -> STRING .)
+    BASENAME        reduce using rule 39 (TEXT -> STRING .)
+    VARY            reduce using rule 39 (TEXT -> STRING .)
+    POP             reduce using rule 39 (TEXT -> STRING .)
+    PUSH            reduce using rule 39 (TEXT -> STRING .)
+    SCREEN          reduce using rule 39 (TEXT -> STRING .)
+    SAVE            reduce using rule 39 (TEXT -> STRING .)
+    DISPLAY         reduce using rule 39 (TEXT -> STRING .)
+    SET             reduce using rule 39 (TEXT -> STRING .)
+    SET_KNOBS       reduce using rule 39 (TEXT -> STRING .)
+    SPHERE          reduce using rule 39 (TEXT -> STRING .)
+    TORUS           reduce using rule 39 (TEXT -> STRING .)
+    BOX             reduce using rule 39 (TEXT -> STRING .)
+    LINE            reduce using rule 39 (TEXT -> STRING .)
+    CIRCLE          reduce using rule 39 (TEXT -> STRING .)
+    BEZIER          reduce using rule 39 (TEXT -> STRING .)
+    HERMITE         reduce using rule 39 (TEXT -> STRING .)
+    MOVE            reduce using rule 39 (TEXT -> STRING .)
+    SCALE           reduce using rule 39 (TEXT -> STRING .)
+    ROTATE          reduce using rule 39 (TEXT -> STRING .)
+    AMBIENT         reduce using rule 39 (TEXT -> STRING .)
+    $end            reduce using rule 39 (TEXT -> STRING .)
+
+
+state 30
 
     (5) statement -> BASENAME TEXT .
 
@@ -750,117 +774,121 @@ state 29
     MOVE            reduce using rule 5 (statement -> BASENAME TEXT .)
     SCALE           reduce using rule 5 (statement -> BASENAME TEXT .)
     ROTATE          reduce using rule 5 (statement -> BASENAME TEXT .)
+    AMBIENT         reduce using rule 5 (statement -> BASENAME TEXT .)
     $end            reduce using rule 5 (statement -> BASENAME TEXT .)
-
-
-state 30
-
-    (37) TEXT -> SYMBOL .
-
-    COMMENT         reduce using rule 37 (TEXT -> SYMBOL .)
-    FRAMES          reduce using rule 37 (TEXT -> SYMBOL .)
-    BASENAME        reduce using rule 37 (TEXT -> SYMBOL .)
-    VARY            reduce using rule 37 (TEXT -> SYMBOL .)
-    POP             reduce using rule 37 (TEXT -> SYMBOL .)
-    PUSH            reduce using rule 37 (TEXT -> SYMBOL .)
-    SCREEN          reduce using rule 37 (TEXT -> SYMBOL .)
-    SAVE            reduce using rule 37 (TEXT -> SYMBOL .)
-    DISPLAY         reduce using rule 37 (TEXT -> SYMBOL .)
-    SET             reduce using rule 37 (TEXT -> SYMBOL .)
-    SET_KNOBS       reduce using rule 37 (TEXT -> SYMBOL .)
-    SPHERE          reduce using rule 37 (TEXT -> SYMBOL .)
-    TORUS           reduce using rule 37 (TEXT -> SYMBOL .)
-    BOX             reduce using rule 37 (TEXT -> SYMBOL .)
-    LINE            reduce using rule 37 (TEXT -> SYMBOL .)
-    CIRCLE          reduce using rule 37 (TEXT -> SYMBOL .)
-    BEZIER          reduce using rule 37 (TEXT -> SYMBOL .)
-    HERMITE         reduce using rule 37 (TEXT -> SYMBOL .)
-    MOVE            reduce using rule 37 (TEXT -> SYMBOL .)
-    SCALE           reduce using rule 37 (TEXT -> SYMBOL .)
-    ROTATE          reduce using rule 37 (TEXT -> SYMBOL .)
-    $end            reduce using rule 37 (TEXT -> SYMBOL .)
 
 
 state 31
 
-    (35) SYMBOL -> XYZ .
+    (38) TEXT -> SYMBOL .
 
-    COMMENT         reduce using rule 35 (SYMBOL -> XYZ .)
-    FRAMES          reduce using rule 35 (SYMBOL -> XYZ .)
-    BASENAME        reduce using rule 35 (SYMBOL -> XYZ .)
-    VARY            reduce using rule 35 (SYMBOL -> XYZ .)
-    POP             reduce using rule 35 (SYMBOL -> XYZ .)
-    PUSH            reduce using rule 35 (SYMBOL -> XYZ .)
-    SCREEN          reduce using rule 35 (SYMBOL -> XYZ .)
-    SAVE            reduce using rule 35 (SYMBOL -> XYZ .)
-    DISPLAY         reduce using rule 35 (SYMBOL -> XYZ .)
-    SET             reduce using rule 35 (SYMBOL -> XYZ .)
-    SET_KNOBS       reduce using rule 35 (SYMBOL -> XYZ .)
-    SPHERE          reduce using rule 35 (SYMBOL -> XYZ .)
-    TORUS           reduce using rule 35 (SYMBOL -> XYZ .)
-    BOX             reduce using rule 35 (SYMBOL -> XYZ .)
-    LINE            reduce using rule 35 (SYMBOL -> XYZ .)
-    CIRCLE          reduce using rule 35 (SYMBOL -> XYZ .)
-    BEZIER          reduce using rule 35 (SYMBOL -> XYZ .)
-    HERMITE         reduce using rule 35 (SYMBOL -> XYZ .)
-    MOVE            reduce using rule 35 (SYMBOL -> XYZ .)
-    SCALE           reduce using rule 35 (SYMBOL -> XYZ .)
-    ROTATE          reduce using rule 35 (SYMBOL -> XYZ .)
-    $end            reduce using rule 35 (SYMBOL -> XYZ .)
-    INT             reduce using rule 35 (SYMBOL -> XYZ .)
-    DOUBLE          reduce using rule 35 (SYMBOL -> XYZ .)
+    COMMENT         reduce using rule 38 (TEXT -> SYMBOL .)
+    FRAMES          reduce using rule 38 (TEXT -> SYMBOL .)
+    BASENAME        reduce using rule 38 (TEXT -> SYMBOL .)
+    VARY            reduce using rule 38 (TEXT -> SYMBOL .)
+    POP             reduce using rule 38 (TEXT -> SYMBOL .)
+    PUSH            reduce using rule 38 (TEXT -> SYMBOL .)
+    SCREEN          reduce using rule 38 (TEXT -> SYMBOL .)
+    SAVE            reduce using rule 38 (TEXT -> SYMBOL .)
+    DISPLAY         reduce using rule 38 (TEXT -> SYMBOL .)
+    SET             reduce using rule 38 (TEXT -> SYMBOL .)
+    SET_KNOBS       reduce using rule 38 (TEXT -> SYMBOL .)
+    SPHERE          reduce using rule 38 (TEXT -> SYMBOL .)
+    TORUS           reduce using rule 38 (TEXT -> SYMBOL .)
+    BOX             reduce using rule 38 (TEXT -> SYMBOL .)
+    LINE            reduce using rule 38 (TEXT -> SYMBOL .)
+    CIRCLE          reduce using rule 38 (TEXT -> SYMBOL .)
+    BEZIER          reduce using rule 38 (TEXT -> SYMBOL .)
+    HERMITE         reduce using rule 38 (TEXT -> SYMBOL .)
+    MOVE            reduce using rule 38 (TEXT -> SYMBOL .)
+    SCALE           reduce using rule 38 (TEXT -> SYMBOL .)
+    ROTATE          reduce using rule 38 (TEXT -> SYMBOL .)
+    AMBIENT         reduce using rule 38 (TEXT -> SYMBOL .)
+    $end            reduce using rule 38 (TEXT -> SYMBOL .)
 
 
 state 32
 
-    (36) SYMBOL -> ID .
+    (36) SYMBOL -> XYZ .
 
-    COMMENT         reduce using rule 36 (SYMBOL -> ID .)
-    FRAMES          reduce using rule 36 (SYMBOL -> ID .)
-    BASENAME        reduce using rule 36 (SYMBOL -> ID .)
-    VARY            reduce using rule 36 (SYMBOL -> ID .)
-    POP             reduce using rule 36 (SYMBOL -> ID .)
-    PUSH            reduce using rule 36 (SYMBOL -> ID .)
-    SCREEN          reduce using rule 36 (SYMBOL -> ID .)
-    SAVE            reduce using rule 36 (SYMBOL -> ID .)
-    DISPLAY         reduce using rule 36 (SYMBOL -> ID .)
-    SET             reduce using rule 36 (SYMBOL -> ID .)
-    SET_KNOBS       reduce using rule 36 (SYMBOL -> ID .)
-    SPHERE          reduce using rule 36 (SYMBOL -> ID .)
-    TORUS           reduce using rule 36 (SYMBOL -> ID .)
-    BOX             reduce using rule 36 (SYMBOL -> ID .)
-    LINE            reduce using rule 36 (SYMBOL -> ID .)
-    CIRCLE          reduce using rule 36 (SYMBOL -> ID .)
-    BEZIER          reduce using rule 36 (SYMBOL -> ID .)
-    HERMITE         reduce using rule 36 (SYMBOL -> ID .)
-    MOVE            reduce using rule 36 (SYMBOL -> ID .)
-    SCALE           reduce using rule 36 (SYMBOL -> ID .)
-    ROTATE          reduce using rule 36 (SYMBOL -> ID .)
-    $end            reduce using rule 36 (SYMBOL -> ID .)
-    INT             reduce using rule 36 (SYMBOL -> ID .)
-    DOUBLE          reduce using rule 36 (SYMBOL -> ID .)
+    COMMENT         reduce using rule 36 (SYMBOL -> XYZ .)
+    FRAMES          reduce using rule 36 (SYMBOL -> XYZ .)
+    BASENAME        reduce using rule 36 (SYMBOL -> XYZ .)
+    VARY            reduce using rule 36 (SYMBOL -> XYZ .)
+    POP             reduce using rule 36 (SYMBOL -> XYZ .)
+    PUSH            reduce using rule 36 (SYMBOL -> XYZ .)
+    SCREEN          reduce using rule 36 (SYMBOL -> XYZ .)
+    SAVE            reduce using rule 36 (SYMBOL -> XYZ .)
+    DISPLAY         reduce using rule 36 (SYMBOL -> XYZ .)
+    SET             reduce using rule 36 (SYMBOL -> XYZ .)
+    SET_KNOBS       reduce using rule 36 (SYMBOL -> XYZ .)
+    SPHERE          reduce using rule 36 (SYMBOL -> XYZ .)
+    TORUS           reduce using rule 36 (SYMBOL -> XYZ .)
+    BOX             reduce using rule 36 (SYMBOL -> XYZ .)
+    LINE            reduce using rule 36 (SYMBOL -> XYZ .)
+    CIRCLE          reduce using rule 36 (SYMBOL -> XYZ .)
+    BEZIER          reduce using rule 36 (SYMBOL -> XYZ .)
+    HERMITE         reduce using rule 36 (SYMBOL -> XYZ .)
+    MOVE            reduce using rule 36 (SYMBOL -> XYZ .)
+    SCALE           reduce using rule 36 (SYMBOL -> XYZ .)
+    ROTATE          reduce using rule 36 (SYMBOL -> XYZ .)
+    AMBIENT         reduce using rule 36 (SYMBOL -> XYZ .)
+    $end            reduce using rule 36 (SYMBOL -> XYZ .)
+    INT             reduce using rule 36 (SYMBOL -> XYZ .)
+    DOUBLE          reduce using rule 36 (SYMBOL -> XYZ .)
 
 
 state 33
 
-    (29) statement -> MOVE NUMBER . NUMBER NUMBER SYMBOL
-    (30) statement -> MOVE NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (37) SYMBOL -> ID .
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    COMMENT         reduce using rule 37 (SYMBOL -> ID .)
+    FRAMES          reduce using rule 37 (SYMBOL -> ID .)
+    BASENAME        reduce using rule 37 (SYMBOL -> ID .)
+    VARY            reduce using rule 37 (SYMBOL -> ID .)
+    POP             reduce using rule 37 (SYMBOL -> ID .)
+    PUSH            reduce using rule 37 (SYMBOL -> ID .)
+    SCREEN          reduce using rule 37 (SYMBOL -> ID .)
+    SAVE            reduce using rule 37 (SYMBOL -> ID .)
+    DISPLAY         reduce using rule 37 (SYMBOL -> ID .)
+    SET             reduce using rule 37 (SYMBOL -> ID .)
+    SET_KNOBS       reduce using rule 37 (SYMBOL -> ID .)
+    SPHERE          reduce using rule 37 (SYMBOL -> ID .)
+    TORUS           reduce using rule 37 (SYMBOL -> ID .)
+    BOX             reduce using rule 37 (SYMBOL -> ID .)
+    LINE            reduce using rule 37 (SYMBOL -> ID .)
+    CIRCLE          reduce using rule 37 (SYMBOL -> ID .)
+    BEZIER          reduce using rule 37 (SYMBOL -> ID .)
+    HERMITE         reduce using rule 37 (SYMBOL -> ID .)
+    MOVE            reduce using rule 37 (SYMBOL -> ID .)
+    SCALE           reduce using rule 37 (SYMBOL -> ID .)
+    ROTATE          reduce using rule 37 (SYMBOL -> ID .)
+    AMBIENT         reduce using rule 37 (SYMBOL -> ID .)
+    $end            reduce using rule 37 (SYMBOL -> ID .)
+    INT             reduce using rule 37 (SYMBOL -> ID .)
+    DOUBLE          reduce using rule 37 (SYMBOL -> ID .)
 
-    NUMBER                         shift and go to state 51
 
 state 34
 
-    (6) statement -> VARY SYMBOL . INT INT NUMBER NUMBER
+    (29) statement -> MOVE NUMBER . NUMBER NUMBER SYMBOL
+    (30) statement -> MOVE NUMBER . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    INT             shift and go to state 52
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
+    NUMBER                         shift and go to state 53
 
 state 35
+
+    (6) statement -> VARY SYMBOL . INT INT NUMBER NUMBER
+
+    INT             shift and go to state 54
+
+
+state 36
 
     (4) statement -> FRAMES INT .
 
@@ -885,21 +913,22 @@ state 35
     MOVE            reduce using rule 4 (statement -> FRAMES INT .)
     SCALE           reduce using rule 4 (statement -> FRAMES INT .)
     ROTATE          reduce using rule 4 (statement -> FRAMES INT .)
+    AMBIENT         reduce using rule 4 (statement -> FRAMES INT .)
     $end            reduce using rule 4 (statement -> FRAMES INT .)
 
 
-state 36
+state 37
 
     (22) statement -> LINE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 53
+    NUMBER                         shift and go to state 55
 
-state 37
+state 38
 
     (13) statement -> DISPLAY TEXT .
 
@@ -924,33 +953,34 @@ state 37
     MOVE            reduce using rule 13 (statement -> DISPLAY TEXT .)
     SCALE           reduce using rule 13 (statement -> DISPLAY TEXT .)
     ROTATE          reduce using rule 13 (statement -> DISPLAY TEXT .)
+    AMBIENT         reduce using rule 13 (statement -> DISPLAY TEXT .)
     $end            reduce using rule 13 (statement -> DISPLAY TEXT .)
 
 
-state 38
+state 39
 
     (15) statement -> SET SYMBOL . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 54
+    NUMBER                         shift and go to state 56
 
-state 39
+state 40
 
     (27) statement -> HERMITE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 55
+    NUMBER                         shift and go to state 57
 
-state 40
+state 41
 
     (16) statement -> SET_KNOBS NUMBER .
 
@@ -975,84 +1005,96 @@ state 40
     MOVE            reduce using rule 16 (statement -> SET_KNOBS NUMBER .)
     SCALE           reduce using rule 16 (statement -> SET_KNOBS NUMBER .)
     ROTATE          reduce using rule 16 (statement -> SET_KNOBS NUMBER .)
+    AMBIENT         reduce using rule 16 (statement -> SET_KNOBS NUMBER .)
     $end            reduce using rule 16 (statement -> SET_KNOBS NUMBER .)
 
 
-state 41
+state 42
 
     (2) stuff -> statement stuff .
 
     $end            reduce using rule 2 (stuff -> statement stuff .)
 
 
-state 42
+state 43
 
     (9) statement -> SCREEN INT . INT
 
-    INT             shift and go to state 56
+    INT             shift and go to state 58
 
-
-state 43
-
-    (19) statement -> TORUS NUMBER . NUMBER NUMBER NUMBER NUMBER INT INT
-    (20) statement -> TORUS NUMBER . NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 57
 
 state 44
 
-    (17) statement -> SPHERE NUMBER . NUMBER NUMBER NUMBER INT INT
-    (18) statement -> SPHERE NUMBER . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (19) statement -> TORUS NUMBER . NUMBER NUMBER NUMBER NUMBER INT INT
+    (20) statement -> TORUS NUMBER . NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 58
-
-state 45
-
-    (33) statement -> ROTATE XYZ . NUMBER SYMBOL
-    (34) statement -> ROTATE XYZ . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 59
 
-state 46
+state 45
 
-    (25) statement -> BEZIER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
-    (26) statement -> BEZIER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (17) statement -> SPHERE NUMBER . NUMBER NUMBER NUMBER INT INT
+    (18) statement -> SPHERE NUMBER . NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 60
 
-state 47
+state 46
 
-    (23) statement -> CIRCLE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (24) statement -> CIRCLE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (33) statement -> ROTATE XYZ . NUMBER SYMBOL
+    (34) statement -> ROTATE XYZ . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 61
 
+state 47
+
+    (25) statement -> BEZIER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
+    (26) statement -> BEZIER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 62
+
 state 48
+
+    (35) statement -> AMBIENT NUMBER . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 63
+
+state 49
+
+    (23) statement -> CIRCLE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+    (24) statement -> CIRCLE NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 64
+
+state 50
 
     (12) statement -> SAVE TEXT .
 
@@ -1077,63 +1119,64 @@ state 48
     MOVE            reduce using rule 12 (statement -> SAVE TEXT .)
     SCALE           reduce using rule 12 (statement -> SAVE TEXT .)
     ROTATE          reduce using rule 12 (statement -> SAVE TEXT .)
+    AMBIENT         reduce using rule 12 (statement -> SAVE TEXT .)
     $end            reduce using rule 12 (statement -> SAVE TEXT .)
 
 
-state 49
-
-    (21) statement -> BOX NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 62
-
-state 50
-
-    (31) statement -> SCALE NUMBER NUMBER . NUMBER SYMBOL
-    (32) statement -> SCALE NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 63
-
 state 51
 
-    (29) statement -> MOVE NUMBER NUMBER . NUMBER SYMBOL
-    (30) statement -> MOVE NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (21) statement -> BOX NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 64
+    NUMBER                         shift and go to state 65
 
 state 52
 
-    (6) statement -> VARY SYMBOL INT . INT NUMBER NUMBER
+    (31) statement -> SCALE NUMBER NUMBER . NUMBER SYMBOL
+    (32) statement -> SCALE NUMBER NUMBER . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    INT             shift and go to state 65
-
-
-state 53
-
-    (22) statement -> LINE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 66
 
+state 53
+
+    (29) statement -> MOVE NUMBER NUMBER . NUMBER SYMBOL
+    (30) statement -> MOVE NUMBER NUMBER . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 67
+
 state 54
+
+    (6) statement -> VARY SYMBOL INT . INT NUMBER NUMBER
+
+    INT             shift and go to state 68
+
+
+state 55
+
+    (22) statement -> LINE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 69
+
+state 56
 
     (15) statement -> SET SYMBOL NUMBER .
 
@@ -1158,22 +1201,23 @@ state 54
     MOVE            reduce using rule 15 (statement -> SET SYMBOL NUMBER .)
     SCALE           reduce using rule 15 (statement -> SET SYMBOL NUMBER .)
     ROTATE          reduce using rule 15 (statement -> SET SYMBOL NUMBER .)
+    AMBIENT         reduce using rule 15 (statement -> SET SYMBOL NUMBER .)
     $end            reduce using rule 15 (statement -> SET SYMBOL NUMBER .)
 
 
-state 55
+state 57
 
     (27) statement -> HERMITE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 67
+    NUMBER                         shift and go to state 70
 
-state 56
+state 58
 
     (9) statement -> SCREEN INT INT .
 
@@ -1198,39 +1242,40 @@ state 56
     MOVE            reduce using rule 9 (statement -> SCREEN INT INT .)
     SCALE           reduce using rule 9 (statement -> SCREEN INT INT .)
     ROTATE          reduce using rule 9 (statement -> SCREEN INT INT .)
+    AMBIENT         reduce using rule 9 (statement -> SCREEN INT INT .)
     $end            reduce using rule 9 (statement -> SCREEN INT INT .)
 
 
-state 57
+state 59
 
     (19) statement -> TORUS NUMBER NUMBER . NUMBER NUMBER NUMBER INT INT
     (20) statement -> TORUS NUMBER NUMBER . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 68
+    NUMBER                         shift and go to state 71
 
-state 58
+state 60
 
     (17) statement -> SPHERE NUMBER NUMBER . NUMBER NUMBER INT INT
     (18) statement -> SPHERE NUMBER NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 69
+    NUMBER                         shift and go to state 72
 
-state 59
+state 61
 
     (33) statement -> ROTATE XYZ NUMBER . SYMBOL
     (34) statement -> ROTATE XYZ NUMBER .
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
     COMMENT         reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
     FRAMES          reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
@@ -1253,53 +1298,65 @@ state 59
     MOVE            reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
     SCALE           reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
     ROTATE          reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
+    AMBIENT         reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
     $end            reduce using rule 34 (statement -> ROTATE XYZ NUMBER .)
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    SYMBOL                         shift and go to state 70
-
-state 60
-
-    (25) statement -> BEZIER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
-    (26) statement -> BEZIER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 71
-
-state 61
-
-    (23) statement -> CIRCLE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
-    (24) statement -> CIRCLE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 72
+    SYMBOL                         shift and go to state 73
 
 state 62
 
-    (21) statement -> BOX NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (25) statement -> BEZIER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
+    (26) statement -> BEZIER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 73
+    NUMBER                         shift and go to state 74
 
 state 63
 
+    (35) statement -> AMBIENT NUMBER NUMBER . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 75
+
+state 64
+
+    (23) statement -> CIRCLE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
+    (24) statement -> CIRCLE NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 76
+
+state 65
+
+    (21) statement -> BOX NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 77
+
+state 66
+
     (31) statement -> SCALE NUMBER NUMBER NUMBER . SYMBOL
     (32) statement -> SCALE NUMBER NUMBER NUMBER .
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
     COMMENT         reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
     FRAMES          reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
@@ -1322,18 +1379,19 @@ state 63
     MOVE            reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
     $end            reduce using rule 32 (statement -> SCALE NUMBER NUMBER NUMBER .)
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    SYMBOL                         shift and go to state 74
+    SYMBOL                         shift and go to state 78
 
-state 64
+state 67
 
     (29) statement -> MOVE NUMBER NUMBER NUMBER . SYMBOL
     (30) statement -> MOVE NUMBER NUMBER NUMBER .
-    (35) SYMBOL -> . XYZ
-    (36) SYMBOL -> . ID
+    (36) SYMBOL -> . XYZ
+    (37) SYMBOL -> . ID
 
     COMMENT         reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
     FRAMES          reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
@@ -1356,71 +1414,72 @@ state 64
     MOVE            reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
     $end            reduce using rule 30 (statement -> MOVE NUMBER NUMBER NUMBER .)
-    XYZ             shift and go to state 31
-    ID              shift and go to state 32
+    XYZ             shift and go to state 32
+    ID              shift and go to state 33
 
-    SYMBOL                         shift and go to state 75
-
-state 65
-
-    (6) statement -> VARY SYMBOL INT INT . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 76
-
-state 66
-
-    (22) statement -> LINE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 77
-
-state 67
-
-    (27) statement -> HERMITE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
-    (28) statement -> HERMITE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 78
+    SYMBOL                         shift and go to state 79
 
 state 68
 
-    (19) statement -> TORUS NUMBER NUMBER NUMBER . NUMBER NUMBER INT INT
-    (20) statement -> TORUS NUMBER NUMBER NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (6) statement -> VARY SYMBOL INT INT . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 79
-
-state 69
-
-    (17) statement -> SPHERE NUMBER NUMBER NUMBER . NUMBER INT INT
-    (18) statement -> SPHERE NUMBER NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 80
 
+state 69
+
+    (22) statement -> LINE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 81
+
 state 70
+
+    (27) statement -> HERMITE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
+    (28) statement -> HERMITE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 82
+
+state 71
+
+    (19) statement -> TORUS NUMBER NUMBER NUMBER . NUMBER NUMBER INT INT
+    (20) statement -> TORUS NUMBER NUMBER NUMBER . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 83
+
+state 72
+
+    (17) statement -> SPHERE NUMBER NUMBER NUMBER . NUMBER INT INT
+    (18) statement -> SPHERE NUMBER NUMBER NUMBER . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 84
+
+state 73
 
     (33) statement -> ROTATE XYZ NUMBER SYMBOL .
 
@@ -1445,45 +1504,75 @@ state 70
     MOVE            reduce using rule 33 (statement -> ROTATE XYZ NUMBER SYMBOL .)
     SCALE           reduce using rule 33 (statement -> ROTATE XYZ NUMBER SYMBOL .)
     ROTATE          reduce using rule 33 (statement -> ROTATE XYZ NUMBER SYMBOL .)
+    AMBIENT         reduce using rule 33 (statement -> ROTATE XYZ NUMBER SYMBOL .)
     $end            reduce using rule 33 (statement -> ROTATE XYZ NUMBER SYMBOL .)
 
 
-state 71
+state 74
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 81
+    NUMBER                         shift and go to state 85
 
-state 72
+state 75
+
+    (35) statement -> AMBIENT NUMBER NUMBER NUMBER .
+
+    COMMENT         reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    FRAMES          reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    BASENAME        reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    VARY            reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    POP             reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    PUSH            reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    SCREEN          reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    SAVE            reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    DISPLAY         reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    SET             reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    SET_KNOBS       reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    SPHERE          reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    TORUS           reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    BOX             reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    LINE            reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    CIRCLE          reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    BEZIER          reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    HERMITE         reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    MOVE            reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    SCALE           reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    ROTATE          reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+    $end            reduce using rule 35 (statement -> AMBIENT NUMBER NUMBER NUMBER .)
+
+
+state 76
 
     (23) statement -> CIRCLE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
     (24) statement -> CIRCLE NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 82
+    NUMBER                         shift and go to state 86
 
-state 73
+state 77
 
     (21) statement -> BOX NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 83
+    NUMBER                         shift and go to state 87
 
-state 74
+state 78
 
     (31) statement -> SCALE NUMBER NUMBER NUMBER SYMBOL .
 
@@ -1508,10 +1597,11 @@ state 74
     MOVE            reduce using rule 31 (statement -> SCALE NUMBER NUMBER NUMBER SYMBOL .)
     SCALE           reduce using rule 31 (statement -> SCALE NUMBER NUMBER NUMBER SYMBOL .)
     ROTATE          reduce using rule 31 (statement -> SCALE NUMBER NUMBER NUMBER SYMBOL .)
+    AMBIENT         reduce using rule 31 (statement -> SCALE NUMBER NUMBER NUMBER SYMBOL .)
     $end            reduce using rule 31 (statement -> SCALE NUMBER NUMBER NUMBER SYMBOL .)
 
 
-state 75
+state 79
 
     (29) statement -> MOVE NUMBER NUMBER NUMBER SYMBOL .
 
@@ -1536,61 +1626,62 @@ state 75
     MOVE            reduce using rule 29 (statement -> MOVE NUMBER NUMBER NUMBER SYMBOL .)
     SCALE           reduce using rule 29 (statement -> MOVE NUMBER NUMBER NUMBER SYMBOL .)
     ROTATE          reduce using rule 29 (statement -> MOVE NUMBER NUMBER NUMBER SYMBOL .)
+    AMBIENT         reduce using rule 29 (statement -> MOVE NUMBER NUMBER NUMBER SYMBOL .)
     $end            reduce using rule 29 (statement -> MOVE NUMBER NUMBER NUMBER SYMBOL .)
 
 
-state 76
+state 80
 
     (6) statement -> VARY SYMBOL INT INT NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 84
+    NUMBER                         shift and go to state 88
 
-state 77
+state 81
 
     (22) statement -> LINE NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 85
+    NUMBER                         shift and go to state 89
 
-state 78
+state 82
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 86
+    NUMBER                         shift and go to state 90
 
-state 79
+state 83
 
     (19) statement -> TORUS NUMBER NUMBER NUMBER NUMBER . NUMBER INT INT
     (20) statement -> TORUS NUMBER NUMBER NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 87
+    NUMBER                         shift and go to state 91
 
-state 80
+state 84
 
     (17) statement -> SPHERE NUMBER NUMBER NUMBER NUMBER . INT INT
     (18) statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .
 
-    INT             shift and go to state 88
+    INT             shift and go to state 92
     COMMENT         reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
     FRAMES          reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
     BASENAME        reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
@@ -1612,45 +1703,46 @@ state 80
     MOVE            reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 18 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER .)
 
 
-state 81
+state 85
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 89
+    NUMBER                         shift and go to state 93
 
-state 82
+state 86
 
     (23) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
     (24) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 90
+    NUMBER                         shift and go to state 94
 
-state 83
+state 87
 
     (21) statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 91
+    NUMBER                         shift and go to state 95
 
-state 84
+state 88
 
     (6) statement -> VARY SYMBOL INT INT NUMBER NUMBER .
 
@@ -1675,38 +1767,39 @@ state 84
     MOVE            reduce using rule 6 (statement -> VARY SYMBOL INT INT NUMBER NUMBER .)
     SCALE           reduce using rule 6 (statement -> VARY SYMBOL INT INT NUMBER NUMBER .)
     ROTATE          reduce using rule 6 (statement -> VARY SYMBOL INT INT NUMBER NUMBER .)
+    AMBIENT         reduce using rule 6 (statement -> VARY SYMBOL INT INT NUMBER NUMBER .)
     $end            reduce using rule 6 (statement -> VARY SYMBOL INT INT NUMBER NUMBER .)
 
 
-state 85
+state 89
 
     (22) statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 92
+    NUMBER                         shift and go to state 96
 
-state 86
+state 90
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 93
+    NUMBER                         shift and go to state 97
 
-state 87
+state 91
 
     (19) statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER . INT INT
     (20) statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .
 
-    INT             shift and go to state 94
+    INT             shift and go to state 98
     COMMENT         reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
     FRAMES          reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
     BASENAME        reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
@@ -1728,41 +1821,42 @@ state 87
     MOVE            reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 20 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER .)
 
 
-state 88
+state 92
 
     (17) statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT . INT
 
-    INT             shift and go to state 95
+    INT             shift and go to state 99
 
 
-state 89
+state 93
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 96
+    NUMBER                         shift and go to state 100
 
-state 90
+state 94
 
     (23) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
     (24) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 97
+    NUMBER                         shift and go to state 101
 
-state 91
+state 95
 
     (21) statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .
 
@@ -1787,10 +1881,11 @@ state 91
     MOVE            reduce using rule 21 (statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 21 (statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 21 (statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 21 (statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 21 (statement -> BOX NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
 
 
-state 92
+state 96
 
     (22) statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .
 
@@ -1815,29 +1910,30 @@ state 92
     MOVE            reduce using rule 22 (statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 22 (statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 22 (statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 22 (statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 22 (statement -> LINE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
 
 
-state 93
+state 97
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 98
+    NUMBER                         shift and go to state 102
 
-state 94
+state 98
 
     (19) statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT . INT
 
-    INT             shift and go to state 99
+    INT             shift and go to state 103
 
 
-state 95
+state 99
 
     (17) statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT INT .
 
@@ -1862,46 +1958,47 @@ state 95
     MOVE            reduce using rule 17 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT INT .)
     SCALE           reduce using rule 17 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT INT .)
     ROTATE          reduce using rule 17 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT INT .)
+    AMBIENT         reduce using rule 17 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT INT .)
     $end            reduce using rule 17 (statement -> SPHERE NUMBER NUMBER NUMBER NUMBER INT INT .)
 
 
-state 96
+state 100
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 100
+    NUMBER                         shift and go to state 104
 
-state 97
+state 101
 
     (23) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
     (24) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER INT
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 101
+    NUMBER                         shift and go to state 105
 
-state 98
+state 102
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 102
+    NUMBER                         shift and go to state 106
 
-state 99
+state 103
 
     (19) statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT INT .
 
@@ -1926,22 +2023,23 @@ state 99
     MOVE            reduce using rule 19 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT INT .)
     SCALE           reduce using rule 19 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT INT .)
     ROTATE          reduce using rule 19 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT INT .)
+    AMBIENT         reduce using rule 19 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT INT .)
     $end            reduce using rule 19 (statement -> TORUS NUMBER NUMBER NUMBER NUMBER NUMBER INT INT .)
 
 
-state 100
+state 104
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 103
+    NUMBER                         shift and go to state 107
 
-state 101
+state 105
 
     (23) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .
     (24) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . INT
@@ -1967,35 +2065,36 @@ state 101
     MOVE            reduce using rule 23 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 23 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 23 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 23 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 23 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
-    INT             shift and go to state 104
+    INT             shift and go to state 108
 
 
-state 102
+state 106
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 105
+    NUMBER                         shift and go to state 109
 
-state 103
+state 107
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
-    NUMBER                         shift and go to state 106
+    NUMBER                         shift and go to state 110
 
-state 104
+state 108
 
     (24) statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .
 
@@ -2020,87 +2119,88 @@ state 104
     MOVE            reduce using rule 24 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     SCALE           reduce using rule 24 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     ROTATE          reduce using rule 24 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
+    AMBIENT         reduce using rule 24 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     $end            reduce using rule 24 (statement -> CIRCLE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
 
 
-state 105
+state 109
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 107
-
-state 106
-
-    (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER INT
-    (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 108
-
-state 107
-
-    (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER INT
-    (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 109
-
-state 108
-
-    (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER INT
-    (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
-
-    NUMBER                         shift and go to state 110
-
-state 109
-
-    (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER INT
-    (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
-
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 111
 
 state 110
 
-    (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER INT
-    (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
-    (39) NUMBER -> . DOUBLE
-    (40) NUMBER -> . INT
+    (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER INT
+    (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
 
-    DOUBLE          shift and go to state 24
-    INT             shift and go to state 25
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
 
     NUMBER                         shift and go to state 112
 
 state 111
 
+    (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER INT
+    (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 113
+
+state 112
+
+    (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER INT
+    (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 114
+
+state 113
+
+    (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER INT
+    (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 115
+
+state 114
+
+    (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER INT
+    (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . NUMBER
+    (40) NUMBER -> . DOUBLE
+    (41) NUMBER -> . INT
+
+    DOUBLE          shift and go to state 25
+    INT             shift and go to state 26
+
+    NUMBER                         shift and go to state 116
+
+state 115
+
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . INT
     (28) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .
 
-    INT             shift and go to state 113
+    INT             shift and go to state 117
     COMMENT         reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     FRAMES          reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     BASENAME        reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
@@ -2122,15 +2222,16 @@ state 111
     MOVE            reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 28 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
 
 
-state 112
+state 116
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER . INT
     (26) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .
 
-    INT             shift and go to state 114
+    INT             shift and go to state 118
     COMMENT         reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     FRAMES          reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     BASENAME        reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
@@ -2152,10 +2253,11 @@ state 112
     MOVE            reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     SCALE           reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     ROTATE          reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
+    AMBIENT         reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
     $end            reduce using rule 26 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER .)
 
 
-state 113
+state 117
 
     (27) statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .
 
@@ -2180,10 +2282,11 @@ state 113
     MOVE            reduce using rule 27 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     SCALE           reduce using rule 27 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     ROTATE          reduce using rule 27 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
+    AMBIENT         reduce using rule 27 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     $end            reduce using rule 27 (statement -> HERMITE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
 
 
-state 114
+state 118
 
     (25) statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .
 
@@ -2208,5 +2311,6 @@ state 114
     MOVE            reduce using rule 25 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     SCALE           reduce using rule 25 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     ROTATE          reduce using rule 25 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
+    AMBIENT         reduce using rule 25 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
     $end            reduce using rule 25 (statement -> BEZIER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER INT .)
 

@@ -254,6 +254,10 @@ def p_statement_rotate(p):
         commands.append(tuple(p[1:]))
         symbols.append(("knob", p[4]))
 
+def p_statement_ambient(p):
+    """statement : AMBIENT NUMBER NUMBER NUMBER"""
+    commands.append(p[1:])
+
 def p_SYMBOL(p):
     """SYMBOL : XYZ
               | ID"""
