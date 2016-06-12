@@ -70,7 +70,9 @@ def calculate_color( color, sources, cons, normal, view ):
         slight = [0, 0, 0]
 
         for x in range(3):
-            dlight[x] = source[x+3]*cons[x+3]*dot_product(normal,s)
+            print "s"+str(normalize(normal))
+            print normalize(s)
+            dlight[x] = source[x+3]*cons[x+3]*dot_product(normalize(normal),normalize(s))
             
             temp = dot_product(normalize(s), normalize(normal))
             temp = scalar_product(normalize(normal), temp)
@@ -91,10 +93,10 @@ def calculate_color( color, sources, cons, normal, view ):
     colr = [0, 0, 0]
 
     for x in range(3):
-        c = ambi[x]+diff[x]+spec[x]
+        c = int(ambi[x])+int(diff[x])+int(spec[x])
         
         if c < 0: 
-            colr[x] = 0
+            colr[x] = c
         elif c > 255:
             colr[x] = 255
         else:
