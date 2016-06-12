@@ -1,6 +1,6 @@
 from display import *
 from matrix import *
-from gmath import calculate_dot
+from gmath import *
 from math import cos, sin, pi
 
 MAX_STEPS = 100
@@ -19,107 +19,122 @@ def scanline_convert(screen, Xm, Ym, Xb, Yb, Xt, Yt, color):
     print Yt
     #print new_Yb<Yt
     while Yb+inc<Yt:
-        print "pls"
+        #print "pls"
         d0= float(Xt-Xb) / (Yt-Yb)
         Xb0=Xb+inc*d0
         if Yb+inc<Ym:
-            print "less"
+            #print "less"
             d1= float(Xm-Xb)/(Ym-Yb)
             Xb1=Xb+inc*d1
             draw_line(screen,Xb0,Yb+inc,Xb1,Yb+inc,color)
         #x1 is on MT
         else:
-            print "else"
+            #print "else"
             d1= float(Xt-Xm)/(Yt-Ym)
             Xm1=Xm+(inc-Ym+Yb)*d1
             draw_line(screen,Xb0,Yb+inc,Xm1,Yb+inc,color)
         inc+=1
         #new_Yb+=inc
         
+def order_points( points, p ):
+
+    Xm = 0
+    Ym = 0
+    Xt = 0
+    Yt = 0
+    Xb = 0
+    Yb = 0
+    
+    if points[p][1]>=points[p+1][1] and points[p][1]>=points[p+2][1]:
+        #print "a"
+        Xt = points[p][0]
+        Yt = points[p][1]
         
-def draw_polygons( points, screen, color ):
+        if points[p+1][1]>=points[p+2][1]:
+            #print "a1"
+            Xm = points[p+1][0]
+            Ym = points[p+1][1]
+                    
+            Xb = points[p+2][0]
+            Yb = points[p+2][1]
+
+        else:
+            #print "a2"
+            Xb = points[p+1][0]
+            Yb = points[p+1][1]
+            
+            Xm = points[p+2][0]
+            Ym = points[p+2][1]
+
+    elif points[p+1][1]>=points[p][1] and points[p+1][1]>=points[p+2][1]:
+        #print "b"
+        Xt = points[p+1][0]
+        Yt = points[p+1][1]
+        
+        if points[p][1]>=points[p+2][1]:
+            #print "b1"
+            Xm = points[p][0]
+            Ym = points[p][1]
+            
+            Xb = points[p+2][0]
+            Yb = points[p+2][1]
+            
+        else:
+            #print "b2"
+            Xb = points[p][0]
+            Yb = points[p][1]
+            
+            Xm = points[p+2][0]
+            Ym = points[p+2][1]
+
+    elif points[p+2][1]>=points[p][1] and points[p+2][1]>=points[p+1][1]:
+        #print "c"
+        Xt = points[p+2][0]
+        Yt = points[p+2][1]
+        
+        if points[p][1]>=points[p+1][1]:
+            #print "c1"
+            Xm = points[p][0]
+            Ym = points[p][1]
+            
+            Xb = points[p+1][0]
+            Yb = points[p+1][1]
+            
+        else:
+            #print "c2"
+            Xb = points[p][0]
+            Yb = points[p][1]
+                    
+            Xm = points[p+1][0]
+            Ym = points[p+1][1]
+
+    return [Xm, Ym, Xb, Yb, Xt, Yt]
+
+        
+def draw_polygons( points, screen, color, sources, cons ):
 
     if len(points) < 3:
         print 'Need at least 3 points to draw a polygon!'
         return
 
     p = 0
+
+    view = [0, 0, 1]
+
     while p < len( points ) - 2:
 
         if calculate_dot( points, p ) < 0:
-
-            if points[p][1]>=points[p+1][1] and points[p][1]>=points[p+2][1]:
-                print "a"
-                Xt = points[p][0]
-                Yt = points[p][1]
-                
-                if points[p+1][1]>=points[p+2][1]:
-                    print "a1"
-                    Xm = points[p+1][0]
-                    Ym = points[p+1][1]
-                    
-                    Xb = points[p+2][0]
-                    Yb = points[p+2][1]
-
-                else:
-                    print "a2"
-                    Xb = points[p+1][0]
-                    Yb = points[p+1][1]
-                    
-                    Xm = points[p+2][0]
-                    Ym = points[p+2][1]
-
-            elif points[p+1][1]>=points[p][1] and points[p+1][1]>=points[p+2][1]:
-                print "b"
-                Xt = points[p+1][0]
-                Yt = points[p+1][1]
-                
-                if points[p][1]>=points[p+2][1]:
-                    print "b1"
-                    Xm = points[p][0]
-                    Ym = points[p][1]
-                    
-                    Xb = points[p+2][0]
-                    Yb = points[p+2][1]
-                
-                else:
-                    print "b2"
-                    Xb = points[p][0]
-                    Yb = points[p][1]
-                    
-                    Xm = points[p+2][0]
-                    Ym = points[p+2][1]
-
-            elif points[p+2][1]>=points[p][1] and points[p+2][1]>=points[p+1][1]:
-                print "c"
-                Xt = points[p+2][0]
-                Yt = points[p+2][1]
-                
-                if points[p][1]>=points[p+1][1]:
-                    print "c1"
-                    Xm = points[p][0]
-                    Ym = points[p][1]
-                    
-                    Xb = points[p+1][0]
-                    Yb = points[p+1][1]
-
-                else:
-                    print "c2"
-                    Xb = points[p][0]
-                    Yb = points[p][1]
-                    
-                    Xm = points[p+1][0]
-                    Ym = points[p+1][1]
-            scanline_convert( screen, Xm, Ym, Xb, Yb, Xt, Yt, color)
-            '''draw_line( screen, points[p][0], points[p][1],
-                       points[p+1][0], points[p+1][1], color )
-            draw_line( screen, points[p+1][0], points[p+1][1],
-                       points[p+2][0], points[p+2][1], color )
-            draw_line( screen, points[p+2][0], points[p+2][1],
-                       points[p][0], points[p][1], color )'''
+            print points[30]
+            print "P\n\n\n\n"            
+            pts = order_points( points, p )
+            color = calculate_color(color, sources, cons, normalize(calculate_normal(points, p)), view)
+            #print color
+            print points[30]
+            print "Q\n\n\n\n"            
+            scanline_convert( screen, pts[0], pts[1], pts[2], 
+                              pts[3], pts[4], pts[5], color )
         
         p+= 3
-
 
 
 def add_box( points, x, y, z, width, height, depth ):

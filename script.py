@@ -163,6 +163,9 @@ def run(filename):
 
     p = mdl.parseFile(filename)
 
+    sources = []
+    cons = []
+
     if p:
         (commands, symbols) = p
     else:
@@ -173,7 +176,7 @@ def run(filename):
     first_pass(commands)
     second_pass(commands, nframes)
     
-    print nframes
+    #print nframes
 
     try:
         os.mkdir(basename)
@@ -185,65 +188,76 @@ def run(filename):
         for command in commands:
             if command[0] == "pop":
                 stack.pop()
+
             if not stack:
                 stack = [ tmp ]
+
             if command[0] == "ambient":                
                 color[0] = command[1]
                 color[1] = command[2]
                 color[2] = command[3]
 
-            if command[0] == "push":
+            elif command[0] == "shading":
+                shade = command[1]
+
+            elif command[0] == "light":
+                sources.append(list(command[1:]))
+
+            elif command[0] == "constants":
+                cons = command[1:]
+
+            elif command[0] == "push":
                 stack.append( stack[-1][:] )
 
-            if command[0] == "save":
+            elif command[0] == "save":
                 save_extension(screen, command[1])
 
-            if command[0] == "display":
+            elif command[0] == "display":
                 display(screen)
 
-            if command[0] == "sphere":
+            elif command[0] == "sphere":
                 m = []
                 add_sphere(m, command[1], command[2], command[3], command[4], 5)
                 matrix_mult(stack[-1], m)
-                draw_polygons( m, screen, color )
+                draw_polygons( m, screen, color, sources, cons )
 
-            if command[0] == "torus":
+            elif command[0] == "torus":
                 m = []
                 add_torus(m, command[1], command[2], command[3], command[4], command[5], 5)
                 matrix_mult(stack[-1], m)
-                draw_polygons( m, screen, color )
+                draw_polygons( m, screen, color, sources, cons )
 
-            if command[0] == "box":                
+            elif command[0] == "box":                
                 m = []
                 add_box(m, *command[1:])
                 matrix_mult(stack[-1], m)
-                draw_polygons( m, screen, color )
+                draw_polygons( m, screen, color, sources, cons )
 
-            if command[0] == "line":
+            elif command[0] == "line":
                 m = []
                 add_edge(m, *command[1:])
                 matrix_mult(stack[-1], m)
                 draw_lines( m, screen, color )
 
-            if command[0] == "bezier":
+            elif command[0] == "bezier":
                 m = []
                 add_curve(m, command[1], command[2], command[3], command[4], command[5], command[6], command[7], command[8], .05, 'bezier')
                 matrix_mult(stack[-1], m)
                 draw_lines( m, screen, color )
 
-            if command[0] == "hermite":
+            elif command[0] == "hermite":
                 m = []
                 add_curve(m, command[1], command[2], command[3], command[4], command[5], command[6], command[7], command[8], .05, 'hermite')
                 matrix_mult(stack[-1], m)
                 draw_lines( m, screen, color )
 
-            if command[0] == "circle":
+            elif command[0] == "circle":
                 m = []
                 add_circle(m, command[1], command[2], command[3], command[4], .05)
                 matrix_mult(stack[-1], m)
                 draw_lines( m, screen, color )
 
-            if command[0] == "move":                
+            elif command[0] == "move":                
                 if command[-1] == "mover":
                     xval = command[1]*knob[j]["mover"]
                     yval = command[2]*knob[j]["mover"]
@@ -256,7 +270,7 @@ def run(filename):
                 matrix_mult( stack[-1], t )
                 stack[-1] = t
     
-            if command[0] == "scale":
+            elif command[0] == "scale":
                 if command[-1] == "bigenator":
                     xval = command[1]*knob[j]["bigenator"]
                     yval = command[2]*knob[j]["bigenator"]
@@ -269,7 +283,7 @@ def run(filename):
                 matrix_mult( stack[-1], t )
                 stack[-1] = t
             
-            if command[0] == "rotate":     
+            elif command[0] == "rotate":     
                 if command[-1] == "spinny":
                     angle = command[2] * (math.pi / 180) * knob[j]["spinny"]
                  
@@ -297,5 +311,5 @@ def run(filename):
              z = 2-int(math.log10(j))              
              save_ppm(screen,basename+"/"+basename+'0'*z+str(j)+".png")        
         clear_screen(screen)     
-        print j
+        #print j
             
