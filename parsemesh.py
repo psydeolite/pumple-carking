@@ -1,4 +1,4 @@
-f=open('testMesh.txt', 'r')
+f=open('inuitours-cut-ascii.stl', 'r')
 r=f.read()
 #print r
 f.close()

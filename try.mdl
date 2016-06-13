@@ -5,12 +5,13 @@ shading flat
 push
 move 250 250 0
 rotate y 45
-box -100 150 25 200 300 50
+//scale 10 10 10
+//box -100 150 25 200 300 50
 //sphere
 //sphere 0 0 0 100
 //sphere 0 0 50 50
 //sphere 0 0 0 50
-sphere 0 0 -50 50
-sphere 0 0 -100 50
-mesh hi
+//sphere 0 0 -50 50
+//sphere 0 0 -100 50
+mesh arraytest
 display

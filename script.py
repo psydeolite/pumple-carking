@@ -224,6 +224,7 @@ def run(filename):
                 m = []
                 add_sphere(m, command[1], command[2], command[3], command[4], 5)
                 matrix_mult(stack[-1], m)
+                print m
                 draw_polygons( m, screen, color, sources, cons, zbuf )
 
             elif command[0] == "torus":
@@ -313,7 +314,30 @@ def run(filename):
             elif command[0]=='mesh':
                 fname=command[1]
                 print fname
-        
+                f=open(fname,'r').read().split()
+                print len(f)
+                ar=[f[x:x+3] for x in range(0, len(f),3)]
+                print ar
+                for i in range(len(ar)):
+                    print ar[i]
+                    ar[i].append('1.0')
+                    print ar[i]
+                    for j in range(len(ar[i])):
+                        ar[i][j]=float(ar[i][j])
+                print ar
+                '''i=0
+                while i<len(f)-4:
+                    t=[]
+                    t.append(float(f[i]))
+                    t.append(float(f[i+1]))
+                    t.append(float(f[i+2]))
+                    t.append(float(1))
+                    f[i]=t
+                    i+=3'''
+                #xprint f
+                matrix_mult(stack[-1], ar)
+                draw_polygons( ar, screen, color, sources, cons, zbuf )
+                
         if j==0:
              save_ppm(screen,basename+"/"+basename+'00'+str(j)+".png")
         else:
