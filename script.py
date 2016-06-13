@@ -165,6 +165,7 @@ def run(filename):
         
     for j in range(nframes):
         #print 'j1: '+str(j)
+        sources=[]
         stack = [ tmp ]
         zbuf = new_matrix(XRES, YRES)
         for x in range(XRES):
