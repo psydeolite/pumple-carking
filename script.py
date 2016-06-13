@@ -1,47 +1,34 @@
 """========== script.py ==========
-
   This is the only file you need to modify in order
   to get a working mdl project (for now).
-
   my_main.c will serve as the interpreter for mdl.
   When an mdl script goes through a lexer and parser, 
   the resulting operations will be in the array op[].
-
   Your job is to go through each entry in op and perform
   the required action from the list below:
-
   frames: set num_frames for animation
-
   basename: set name for animation
-
   vary: manipluate knob values between two given frames
         over a specified interval
-
   set: set a knob to a given value
   
   setknobs: set all knobs to a given value
-
   push: push a new origin matrix onto the origin stack
   
   pop: remove the top matrix on the origin stack
-
   move/scale/rotate: create a transformation matrix 
                      based on the provided values, then 
 		     multiply the current top of the
 		     origins stack by it.
-
   box/sphere/torus: create a solid object based on the
                     provided values. Store that in a 
 		    temporary matrix, multiply it by the
 		    current top of the origins stack, then
 		    call draw_polygons.
-
   line: create a line based on the provided values. Store 
         that in a temporary matrix, multiply it by the
 	current top of the origins stack, then call draw_lines.
-
   save: call save_extension with the provided filename
-
   display: view the image live
   
   jdyrlandweaver
@@ -60,20 +47,16 @@ basename = 'acid'
 knob = []
 
 """======== first_pass( commands, symbols ) ==========
-
   Checks the commands array for any animation commands
   (frames, basename, vary)
   
   Should set num_frames and basename if the frames 
   or basename commands are present
-
   If vary is found, but frames is not, the entire
   program should exit.
-
   If frames is found, but basename is not, set name
   to some default value, and print out a message
   with the name being used.
-
   jdyrlandweaver
   ==================== """
 def first_pass( commands ):
@@ -104,17 +87,14 @@ def first_pass( commands ):
         
 
 """======== second_pass( commands ) ==========
-
   In order to set the knobs for animation, we need to keep
   a seaprate value for each knob for each frame. We can do
   this by using an array of dictionaries. Each array index
   will correspond to a frame (eg. knobs[0] would be the first
   frame, knobs[2] would be the 3rd frame and so on).
-
   Each index should contain a dictionary of knob values, each
   key will be a knob name, and each value will be the knob's
   value for that frame.
-
   Go through the command array, and when you find vary, go 
   from knobs[0] to knobs[frames-1] and add (or modify) the
   dictionary corresponding to the given knob with the
@@ -348,3 +328,4 @@ def run(filename):
         clear_screen(screen)     
         print j
             
+
