@@ -26,7 +26,7 @@ def plot( screen, color, x, y, z, zbuf ):
     newy = YRES - 1 - y
     if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES ):
         if z > zbuf[x][newy]:
-            print 'can draw'
+            #print 'can draw'
             screen[x][newy] = color[:]
             zbuf[x][newy] = z
 

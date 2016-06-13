@@ -33,9 +33,9 @@ def dot_product( v0, v1 ):
     return v0[0]*v1[0] + v0[1]*v1[1] + v0[2]*v1[2]
     
 def normalize(v):
-    print v
+    #print v
     mag = sqrt(pow(v[0],2)+pow(v[1],2)+pow(v[2],2))
-    print mag
+    #print mag
     ret = [ 0, 0, 0 ]
     for x in range(3):
         if mag!=0:
@@ -70,8 +70,8 @@ def calculate_color( color, sources, cons, normal, view ):
         slight = [0, 0, 0]
 
         for x in range(3):
-            print "s"+str(normalize(normal))
-            print normalize(s)
+            #print "s"+str(normalize(normal))
+            #print normalize(s)
             dlight[x] = source[x+3]*cons[x+3]*dot_product(normalize(normal),normalize(s))
             
             temp = dot_product(normalize(s), normalize(normal))

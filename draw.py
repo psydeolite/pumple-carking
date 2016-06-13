@@ -135,13 +135,13 @@ def draw_polygons( points, screen, color, sources, cons , zbuf):
     while p < len( points ) - 2:
 
         if calculate_dot( points, p ) < 0:
-            print points[30]
-            print "P\n\n\n\n"            
+            #print points[30]
+            #print "P\n\n\n\n"            
             pts = order_points( points, p )
             color = calculate_color(color, sources, cons, normalize(calculate_normal(points, p)), view)
             #print color
-            print points[30]
-            print "Q\n\n\n\n"            
+            #print points[30]
+            #print "Q\n\n\n\n"            
             scanline_convert( screen, pts[0], pts[1], pts[2], 
                               pts[3], pts[4], pts[5], pts[6], pts[7], pts[8], color, zbuf )
         

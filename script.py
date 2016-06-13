@@ -309,6 +309,10 @@ def run(filename):
                         t = make_rotZ( angle )            
                 matrix_mult( stack[-1], t )
                 stack[-1] = t
+
+            elif command[0]=='mesh':
+                fname=command[1]
+                print fname
         
         if j==0:
              save_ppm(screen,basename+"/"+basename+'00'+str(j)+".png")
