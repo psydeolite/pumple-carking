@@ -1,7 +1,7 @@
 from display import *
 from matrix import *
 from gmath import *
-from math import cos, sin, pi
+from math import cos, sin, pi, sqrt, pow
 
 MAX_STEPS = 100
 
@@ -10,31 +10,28 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point( points, x1, y1, z1 )
     add_point( points, x2, y2, z2 )
 
-def scanline_convert(screen, Xm, Ym, Xb, Yb, Xt, Yt, color):
-    print Yb, Ym, Yt
+def scanline_convert(screen, Xm, Ym, Zm, Xb, Yb, Zb, Xt, Yt, Zt, color, zbuf):
     inc=0
     #while haven't reached top of triangle
-    #new_Yb=Yb+inc
-    #print new_Yb
-    print Yt
-    #print new_Yb<Yt
     while Yb+inc<Yt:
-        #print "pls"
         d0= float(Xt-Xb) / (Yt-Yb)
+        d0z = float(Zt-Zb) / sqrt(pow(Xm-Xb, 2) + pow(Ym - Yb, 2))
         Xb0=Xb+inc*d0
+        Zb0=Zb + sqrt(pow(inc,2)+pow((inc*d0),2))*d0z
         if Yb+inc<Ym:
-            #print "less"
             d1= float(Xm-Xb)/(Ym-Yb)
+            d1z = float(Zm-Zb) / sqrt(pow(Xm-Xb, 2) + pow(Ym - Yb, 2))
             Xb1=Xb+inc*d1
-            draw_line(screen,Xb0,Yb+inc,Xb1,Yb+inc,color)
+            Zb1=Zb + sqrt(pow(inc,2)+pow((inc*d1),2))*d1z
+            draw_line(screen,Xb0,Yb+inc, Zb0, Xb1,Yb+inc,Zb1,color, zbuf)
         #x1 is on MT
         else:
-            #print "else"
             d1= float(Xt-Xm)/(Yt-Ym)
+            d1z = float(Zt-Zm) / sqrt(pow(Xt-Xm, 2) + pow(Yt - Ym, 2))
             Xm1=Xm+(inc-Ym+Yb)*d1
-            draw_line(screen,Xb0,Yb+inc,Xm1,Yb+inc,color)
+            Zm1=Zm+sqrt(pow(inc-Ym+Yb,2)+pow((inc-Ym+Yb)*d1,2))*d1z
+            draw_line(screen,Xb0,Yb+inc,Zb0,Xm1,Yb+inc,Zm1,color, zbuf)
         inc+=1
-        #new_Yb+=inc
         
 def order_points( points, p ):
 
@@ -49,69 +46,83 @@ def order_points( points, p ):
         #print "a"
         Xt = points[p][0]
         Yt = points[p][1]
+        Zt = points[p][2]
         
         if points[p+1][1]>=points[p+2][1]:
             #print "a1"
             Xm = points[p+1][0]
             Ym = points[p+1][1]
+            Zm = points[p+1][2]
                     
             Xb = points[p+2][0]
             Yb = points[p+2][1]
+            Zb = points[p+2][2]
 
         else:
             #print "a2"
             Xb = points[p+1][0]
             Yb = points[p+1][1]
+            Zb = points[p+1][2]
             
             Xm = points[p+2][0]
             Ym = points[p+2][1]
+            Zm = points[p+2][2]
 
     elif points[p+1][1]>=points[p][1] and points[p+1][1]>=points[p+2][1]:
         #print "b"
         Xt = points[p+1][0]
         Yt = points[p+1][1]
+        Zt = points[p+1][2]
         
         if points[p][1]>=points[p+2][1]:
             #print "b1"
             Xm = points[p][0]
             Ym = points[p][1]
+            Zm = points[p][2]
             
             Xb = points[p+2][0]
             Yb = points[p+2][1]
-            
+            Zb = points[p+2][2]
         else:
             #print "b2"
             Xb = points[p][0]
             Yb = points[p][1]
+            Zb = points[p][2]
             
             Xm = points[p+2][0]
             Ym = points[p+2][1]
+            Zm = points[p+2][2]
 
     elif points[p+2][1]>=points[p][1] and points[p+2][1]>=points[p+1][1]:
         #print "c"
         Xt = points[p+2][0]
         Yt = points[p+2][1]
+        Zt = points[p+2][2]
         
         if points[p][1]>=points[p+1][1]:
             #print "c1"
             Xm = points[p][0]
             Ym = points[p][1]
+            Zm = points[p][2]
             
             Xb = points[p+1][0]
             Yb = points[p+1][1]
+            Zb = points[p+1][2]
             
         else:
             #print "c2"
             Xb = points[p][0]
             Yb = points[p][1]
+            Zb = points[p][2]
                     
             Xm = points[p+1][0]
             Ym = points[p+1][1]
+            Zm = points[p+1][2]
 
-    return [Xm, Ym, Xb, Yb, Xt, Yt]
+    return [Xm, Ym, Zm, Xb, Yb, Zb, Xt, Yt, Zt]
 
         
-def draw_polygons( points, screen, color, sources, cons ):
+def draw_polygons( points, screen, color, sources, cons , zbuf):
 
     if len(points) < 3:
         print 'Need at least 3 points to draw a polygon!'
@@ -132,7 +143,7 @@ def draw_polygons( points, screen, color, sources, cons ):
             print points[30]
             print "Q\n\n\n\n"            
             scanline_convert( screen, pts[0], pts[1], pts[2], 
-                              pts[3], pts[4], pts[5], color )
+                              pts[3], pts[4], pts[5], pts[6], pts[7], pts[8], color, zbuf )
         
         p+= 3
 
@@ -385,8 +396,8 @@ def draw_lines( matrix, screen, color ):
         
     p = 0
     while p < len( matrix ) - 1:
-        draw_line( screen, matrix[p][0], matrix[p][1],
-                   matrix[p+1][0], matrix[p+1][1], color )
+        draw_line( screen, matrix[p][0], matrix[p][1], matrix[p][2],
+                   matrix[p+1][0], matrix[p+1][1], matrix[p+1][2], color )
         p+= 2
 
 def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
@@ -397,71 +408,101 @@ def add_point( matrix, x, y, z=0 ):
     matrix.append( [x, y, z, 1] )
 
 
-def draw_line( screen, x0, y0, x1, y1, color ):
+def draw_line( screen, x0, y0, z0, x1, y1, z1, color, zbuf):
     dx = x1 - x0
     dy = y1 - y0
+    dz = z1 - z0
+    
     if dx + dy < 0:
         dx = 0 - dx
         dy = 0 - dy
+        dz = 0 - dz
+        
         tmp = x0
         x0 = x1
         x1 = tmp
         tmp = y0
         y0 = y1
         y1 = tmp
-    
+        tmp = z0
+        z0 = z1
+        z1 = tmp
+        dz = 0-dz
+        
+    elif dx == dy == 0:
+        if z1 > z0:
+            plot(screen, color, x0, y0, z1, zbuf)
+        else:
+            plot(screen, color, x0, y0, z0, zbuf)
     if dx == 0:
         y = y0
-        while y <= y1:
-            plot(screen, color,  x0, y)
+        z = z0
+        while y < y1:
+            plot(screen, color,  x0, y, z, zbuf)
             y = y + 1
+            z = z + dz/dy
     elif dy == 0:
         x = x0
+        z = z0
         while x <= x1:
-            plot(screen, color, x, y0)
+            plot(screen, color, x, y0, z, zbuf)
             x = x + 1
+            z = z + dz/dx
     elif dy < 0:
         d = 0
         x = x0
         y = y0
+        z = z0
         while x <= x1:
-            plot(screen, color, x, y)
+            plot(screen, color, x, y, z, zbuf)
             if d > 0:
                 y = y - 1
                 d = d - dx
+                z = z + dz
             x = x + 1
             d = d - dy
+            z = z + dz/dx
     elif dx < 0:
         d = 0
         x = x0
         y = y0
+        z = z0
         while y <= y1:
-            plot(screen, color, x, y)
+            plot(screen, color, x, y, z, zbuf)
             if d > 0:
                 x = x - 1
                 d = d - dy
+                z = z + dz
             y = y + 1
             d = d - dx
+            z = z + dz/dy
     elif dx > dy:
         d = 0
         x = x0
         y = y0
+        z = z0
         while x <= x1:
             plot(screen, color, x, y)
             if d > 0:
                 y = y + 1
                 d = d - dx
+                z = z + dz
             x = x + 1
             d = d + dy
+            z = z + dz/dx
     else:
         d = 0
         x = x0
         y = y0
+        z = z0
         while y <= y1:
-            plot(screen, color, x, y)
+            plot(screen, color, x, y, z, zbuf)
             if d > 0:
                 x = x + 1
                 d = d - dy
+                z = z + dz
             y = y + 1
             d = d + dx
+            z = z + dz/dy
+        
 

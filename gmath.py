@@ -96,7 +96,7 @@ def calculate_color( color, sources, cons, normal, view ):
         c = int(ambi[x])+int(diff[x])+int(spec[x])
         
         if c < 0: 
-            colr[x] = c
+            colr[x] = 0
         elif c > 255:
             colr[x] = 255
         else:

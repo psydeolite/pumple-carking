@@ -185,6 +185,11 @@ def run(filename):
         
     for j in range(nframes):
         stack = [ tmp ]
+        zbuf = new_matrix(XRES, YRES)
+        for x in range(XRES):
+            for y in range(YRES):
+                zbuf[x][y]=float("-inf")
+                
         for command in commands:
             if command[0] == "pop":
                 stack.pop()
@@ -219,19 +224,19 @@ def run(filename):
                 m = []
                 add_sphere(m, command[1], command[2], command[3], command[4], 5)
                 matrix_mult(stack[-1], m)
-                draw_polygons( m, screen, color, sources, cons )
+                draw_polygons( m, screen, color, sources, cons, zbuf )
 
             elif command[0] == "torus":
                 m = []
                 add_torus(m, command[1], command[2], command[3], command[4], command[5], 5)
                 matrix_mult(stack[-1], m)
-                draw_polygons( m, screen, color, sources, cons )
+                draw_polygons( m, screen, color, sources, cons, zbuf )
 
             elif command[0] == "box":                
                 m = []
                 add_box(m, *command[1:])
                 matrix_mult(stack[-1], m)
-                draw_polygons( m, screen, color, sources, cons )
+                draw_polygons( m, screen, color, sources, cons, zbuf )
 
             elif command[0] == "line":
                 m = []
