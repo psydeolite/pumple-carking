@@ -270,6 +270,10 @@ def p_statement_shading(p):
     """statement : SHADING SHADING_TYPE"""
     commands.append(tuple(p[1:]))
 
+def p_statement_mesh(p):
+    """statement : MESH TEXT"""
+    commands.append(tuple(p[1:]))
+
 def p_SYMBOL(p):
     """SYMBOL : XYZ
               | ID"""
