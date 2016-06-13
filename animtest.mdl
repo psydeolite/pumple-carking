@@ -1,9 +1,12 @@
-frames 50
-basename simple
+constants 0.2 0.2 0.2 0.4 0.4 0.4 0.4 0.4 0.4
+light 100 100 100 255 255 255
+shading flat
+frames 5
+basename hi
 push
 move 250 250 0
 scale 2 2 2 bigenator
 rotate y 360 spinny
 sphere 0 0 0 100 
-vary spinny 0 49 0 1
-vary bigenator 0 49 0 1
+vary spinny 0 4 0 1
+vary bigenator 0 4 0 1

@@ -1,11 +1,13 @@
 constants 0.2 0.2 0.2 0.4 0.4 0.4 0.4 0.4 0.4
-light 100 100 100 255 255 255
+light 100 100 100 255 0 0
 shading flat
+frames 20
+basename bearspin
 //body
 push
-move 250 -300 0
-rotate y 90
-//rotate z 45
+move -300 300 0
+rotate y 95
+rotate x -90
 scale 6 6 6
 //scale 10 10 10
 //box -100 150 25 200 300 50
@@ -16,4 +18,10 @@ scale 6 6 6
 //sphere 0 0 -50 50
 //sphere 0 0 -100 50
 mesh arraytest
-display
+pop
+push
+//rotate y 360 spinny
+scale 2 2 2 bigenator
+vary bigenator 0 19 0 1
+//vary spinny 0 9 0 1
+//display

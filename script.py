@@ -184,6 +184,7 @@ def run(filename):
         pass
         
     for j in range(nframes):
+        #print 'j1: '+str(j)
         stack = [ tmp ]
         zbuf = new_matrix(XRES, YRES)
         for x in range(XRES):
@@ -313,18 +314,18 @@ def run(filename):
 
             elif command[0]=='mesh':
                 fname=command[1]
-                print fname
+                #print fname
                 f=open(fname,'r').read().split()
-                print len(f)
+                #print len(f)
                 ar=[f[x:x+3] for x in range(0, len(f),3)]
-                print ar
+                #print ar
                 for i in range(len(ar)):
-                    print ar[i]
+                    #print ar[i]
                     ar[i].append('1.0')
-                    print ar[i]
-                    for j in range(len(ar[i])):
-                        ar[i][j]=float(ar[i][j])
-                print ar
+                    #print ar[i]
+                    for h in range(len(ar[i])):
+                        ar[i][h]=float(ar[i][h])
+                #print ar
                 '''i=0
                 while i<len(f)-4:
                     t=[]
@@ -342,7 +343,8 @@ def run(filename):
              save_ppm(screen,basename+"/"+basename+'00'+str(j)+".png")
         else:
              z = 2-int(math.log10(j))              
-             save_ppm(screen,basename+"/"+basename+'0'*z+str(j)+".png")        
+             save_ppm(screen,basename+"/"+basename+'0'*z+str(j)+".png")
+             #print z
         clear_screen(screen)     
-        #print j
+        print j
             
